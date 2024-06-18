@@ -53,3 +53,69 @@ def main():
 # This conditional checks if the script is being run directly or being imported
 if __name__ == "__main__":
     main()
+
+
+
+# REFACTORED VERSION 
+
+
+def add_task(todo_list):
+    task = input("Please enter your task: ").strip()  # Strip whitespace from input
+    if task:
+        todo_list.append(task)
+        print(f"Your new task '{task}' was added to the list.")
+    else:
+        print("Task description cannot be empty.")
+
+def view_tasks(todo_list):
+    if not todo_list:
+        print("The to-do list is empty.")
+    else:
+        print("\nTo-Do List:")
+        for index, task in enumerate(todo_list, start=1):
+            print(f"{index}. {task}")
+
+def remove_task(todo_list):
+    if not todo_list:
+        print("There are no tasks assigned yet!")
+        return
+    
+    view_tasks(todo_list)
+    
+    try:
+        dltask = int(input("What task do you want to remove? Enter the number: ")) - 1
+        
+        if 0 <= dltask < len(todo_list):
+            removed_task = todo_list.pop(dltask)
+            print(f"Task '{removed_task}' was removed from tasks!")
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Please enter integers only!")
+
+def main():
+    todo_list = []
+
+    while True:
+        print("\nTo-Do List Menu:")
+        print("1. Add a task")
+        print("2. Remove a task")
+        print("3. View all tasks")
+        print("4. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            add_task(todo_list)
+        elif choice == '2':
+            remove_task(todo_list)
+        elif choice == '3':
+            view_tasks(todo_list)
+        elif choice == '4':
+            print("Exiting the To-Do List application. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
+if __name__ == "__main__":
+    main()
